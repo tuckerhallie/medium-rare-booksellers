@@ -39,7 +39,7 @@ CREATE TABLE "Posts" (
   "image_url" varchar,
   "content" varchar,
   "approved" bit,
-  FOREIGN KEY(`user_id`) REFERENCES `Users`(`id`),
+  FOREIGN KEY(`user_id`) REFERENCES `Users`(`id`)
 );
 
 CREATE TABLE "Comments" (
@@ -88,3 +88,18 @@ CREATE TABLE "Categories" (
 INSERT INTO Categories ('label') VALUES ('News');
 INSERT INTO Tags ('label') VALUES ('JavaScript');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
+INSERT INTO Reactions ('label', 'image_url') VALUES ('mad', 'https://pngtree.com/so/mad');
+INSERT INTO Reactions ('label', 'image_url') VALUES ('sad', 'https://pngtree.com/so/sad');
+INSERT INTO Reactions ('label', 'image_url') VALUES ('silly', 'https://pngtree.com/so/silly');
+
+SELECT 
+  r.id,
+  r.label
+FROM reactions r
+WHERE r.id = 1
+
+SELECT
+  r.id,
+  r.label
+FROM reactions r
+WHERE r.label = "sad" 
