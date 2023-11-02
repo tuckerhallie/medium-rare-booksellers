@@ -98,3 +98,5 @@ INSERT INTO 'Users' VALUES (2, "Fay", "First", "ff123@email.com", "Beach goer", 
 
 INSERT INTO `Comments` VALUES (null, 2, 1, "hello");
 INSERT INTO `Comments` VALUES (null, 3, 2, "yes");
+
+INSERT INTO 'Posts' VALUES (2, 1, 1, 'Heyyyy', null, null, 'hey hi', null);
