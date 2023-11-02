@@ -88,6 +88,21 @@ CREATE TABLE "Categories" (
 INSERT INTO Categories ('label') VALUES ('News');
 INSERT INTO Tags ('label') VALUES ('JavaScript');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
+INSERT INTO Reactions ('label', 'image_url') VALUES ('mad', 'https://pngtree.com/so/mad');
+INSERT INTO Reactions ('label', 'image_url') VALUES ('sad', 'https://pngtree.com/so/sad');
+INSERT INTO Reactions ('label', 'image_url') VALUES ('silly', 'https://pngtree.com/so/silly');
+
+SELECT 
+  r.id,
+  r.label
+FROM reactions r
+WHERE r.id = 1
+
+SELECT
+  r.id,
+  r.label
+FROM reactions r
+WHERE r.label = "sad" 
 
 INSERT INTO `PostReactions` VALUES (1, 2, 1, 1);
 INSERT INTO `PostReactions` VALUES (2, 2, 1, 1);
@@ -98,3 +113,5 @@ INSERT INTO 'Users' VALUES (2, "Fay", "First", "ff123@email.com", "Beach goer", 
 
 INSERT INTO `Comments` VALUES (null, 2, 1, "hello");
 INSERT INTO `Comments` VALUES (null, 3, 2, "yes");
+
+INSERT INTO 'Posts' VALUES (2, 1, 1, 'Heyyyy', null, null, 'hey hi', null);
