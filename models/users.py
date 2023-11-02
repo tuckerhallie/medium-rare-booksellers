@@ -1,4 +1,4 @@
-class User:
+class User():
     """
     This class represents a user object.
 
