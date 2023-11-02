@@ -1,4 +1,4 @@
-class Comment:
+class Comment():
     """This module contains the definition of the Comment class."""
 
 def __init__(self, id, author_id, content):
