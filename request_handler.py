@@ -70,7 +70,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.wfile.write(response.encode())
 
     def do_PUT(self):
-        """Handles PUT requests to the server"""
+        """updates information"""
         pass
 
     def do_DELETE(self):

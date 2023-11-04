@@ -69,3 +69,37 @@ def create_user(user):
             'token': id,
             'valid': True
         })
+
+def update_user(id, new_user):
+    """update item"""
+    with sqlite3.connect("./kennel.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        UPDATE User
+            SET
+                first_name = ?,
+                last_name = ?,          
+                email = ?,
+                password = ?,
+                bio = ?,
+                profile_image_url = ?,
+                active = ?
+        WHERE id = ?
+        """, (new_user['first_name'], new_user['last_name'],
+              new_user['email'], new_user['password'],
+              new_user['bio'], new_user['profile_image_url'], 
+              new_user['active'], id, ))
+
+        # Were any rows affected?
+        # Did the client send an `id` that exists?
+        rows_affected = db_cursor.rowcount
+
+    # return value of this function
+    if rows_affected == 0:
+        # Forces 404 response by main module
+        return False
+    else:
+        # Forces 204 response by main module
+        return True
+
