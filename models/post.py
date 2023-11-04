@@ -8,3 +8,6 @@ class Post():
         self.image_url = image_url
         self.content = content
         self.approved = approved
+        self.username = None
+        self.comment = None
+        self.post_reaction = None
