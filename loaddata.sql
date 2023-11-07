@@ -92,17 +92,17 @@ INSERT INTO Reactions ('label', 'image_url') VALUES ('mad', 'https://pngtree.com
 INSERT INTO Reactions ('label', 'image_url') VALUES ('sad', 'https://pngtree.com/so/sad');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('silly', 'https://pngtree.com/so/silly');
 
-SELECT 
-  r.id,
-  r.label
-FROM reactions r
-WHERE r.id = 1
+-- SELECT 
+--   r.id,
+--   r.label
+-- FROM reactions r
+-- WHERE r.id = 1
 
-SELECT
-  r.id,
-  r.label
-FROM reactions r
-WHERE r.label = "sad" 
+-- SELECT
+--   r.id,
+--   r.label
+-- FROM reactions r
+-- WHERE r.label = "sad" 
 
 INSERT INTO `PostReactions` VALUES (1, 2, 1, 1);
 INSERT INTO `PostReactions` VALUES (2, 2, 1, 1);
@@ -122,16 +122,9 @@ SELECT
     pr.post_id,
     pr.reaction_id,
     r.label reaction_label,
-    r.image_url reaction_image_url,
-    u.username user_username,
-    p.title post_title,
-    p.content post_content
-FROM PostReactions pr
-LEFT JOIN Users u
-    ON u.id = pr.user_id
-LEFT JOIN Posts p
-    ON p.id = pr.post_id
-LEFT JOIN Reactions r
+    r.image_url reaction_image_url
+FROM postreactions pr
+JOIN reactions r
     ON r.id = pr.reaction_id
 
 
@@ -143,10 +136,10 @@ SELECT
 FROM PostReactions pr
 WHERE pr.id = 1         
 
-SELECT
-  c.id,
-  c.post_id,
-  c.author_id,
-  c.content
-FROM Comments c
-WHERE c.id = 2
+-- SELECT
+--   c.id,
+--   c.post_id,
+--   c.author_id,
+--   c.content
+-- FROM Comments c
+-- WHERE c.id = 2

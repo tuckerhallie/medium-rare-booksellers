@@ -32,7 +32,7 @@ def get_all_posts():
               row['user_id'],
               row['category_id'],
               row['title'],
-              row['publication_id'],
+              row['publication_date'],
               row['image_url'],
               row['content'],
               row['approved']
