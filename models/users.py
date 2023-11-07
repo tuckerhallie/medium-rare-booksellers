@@ -28,4 +28,7 @@ class User():
         self.active = active
 
 # Creating a new Customer object
-new_user = User(1, "John", "Smith", "jsmith@email.com", "I love to moutain bike", "jsmith", "password", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX6aiBxhteng980rfwzcL7xz8EXnR3eN3K4Q&usqp=CAU", "10/3/23", "active")
+new_user = User(
+    1, "John", "Smith", "jsmith@email.com", "I love to mountain bike", "jsmith", "password",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX6aiBxhteng980rfwzcL7xz8EXnR3eN3K4Q&usqp=CAU", 
+    "10/3/23", True)
