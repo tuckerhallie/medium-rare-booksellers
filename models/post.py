@@ -11,3 +11,6 @@ class Post():
         self.username = None
         self.comment = None
         self.post_reaction = None
+        
+    def serialized(self):
+       return {"title": self.title, "content": self.content}
