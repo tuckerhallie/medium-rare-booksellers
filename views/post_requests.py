@@ -145,3 +145,34 @@ def delete_post(id):
         DELETE FROM Posts
         WHERE id = ?
         """, (id, ))
+
+def update_post(id, new_post):
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        UPDATE Posts
+            SET
+                p.user_id = ?,
+                p.category_id = ?,
+                p.title = ?,
+                p.publication_date = ?,
+                p.image_url = ?,
+                p.content = ?,
+                p.approved = ?
+        WHERE id = ?
+        """, (new_post['userId'],
+              new_post['categoryId'],
+              new_post['title'],
+              new_post['publicationId'],
+              new_post['imageUrl'],
+              new_post['content'],
+              new_post['approved'],
+              id, ))
+
+        rows_affected = db_cursor.rowcount
+
+    if rows_affected == 0:
+        return False
+    else:
+        return True
