@@ -142,3 +142,11 @@ SELECT
     pr.reaction_id
 FROM PostReactions pr
 WHERE pr.id = 1         
+
+SELECT
+  c.id,
+  c.post_id,
+  c.author_id,
+  c.content
+FROM Comments c
+WHERE c.id = 2
