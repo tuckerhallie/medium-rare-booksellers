@@ -17,3 +17,11 @@ from .post_reaction_requests import get_all_post_reactions
 from .post_reaction_requests import get_single_post_reaction
 from .post_reaction_requests import create_post_reaction
 from .post_reaction_requests import delete_post_reaction
+
+from .comment_requests import get_all_comments
+from .comment_requests import get_single_comment
+from .comment_requests import create_comment
+from .comment_requests import delete_comment
+from .comment_requests import update_comment
+from .comment_requests import get_comments_by_post
+
