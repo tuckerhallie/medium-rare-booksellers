@@ -5,7 +5,7 @@ class PostReaction():
       self.user_id = user_id
       self.reaction_id = reaction_id
       self.post_id = post_id
-      self.user_id = None
-      self.reaction_id = None
-      self.post_id = None
+      # self.user_id = None
+      # self.reaction_id = None
+      # self.post_id = None
       

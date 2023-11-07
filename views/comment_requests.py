@@ -70,7 +70,6 @@ def get_single_comment(id):
 
 def create_comment(new_comment):
     with sqlite3.connect("./db.sqlite3") as conn:
-    with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
@@ -80,9 +79,7 @@ def create_comment(new_comment):
             ( ?, ?, ?);
         """, (new_comment['postId'], new_comment['authorId'],
               new_comment['content'] ))
-            ( ?, ?, ?);
-        """, (new_comment['post_id'], new_comment['author_id'],
-              new_comment['content'], ))
+
 
         # The `lastrowid` property on the cursor will return
         # the primary key of the last thing that got added to

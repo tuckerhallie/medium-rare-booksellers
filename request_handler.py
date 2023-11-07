@@ -53,7 +53,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         """Handle Get requests to the server"""
         self._set_headers(200)
         response = {}
-        parsed = self.parse_url()
+        parsed = self.parse_url(self.path)
         
         if '?' not in self.path:
             ( resource, id ) = parsed
@@ -147,7 +147,7 @@ class HandleRequests(BaseHTTPRequestHandler):
     def do_DELETE(self):
         """Handle DELETE Requests"""
         self._set_headers(204)
-        (resource, id) = self.parse_url()
+        (resource, id) = self.parse_url(self.path)
         
         if resource == "posts":
             delete_post(id)
