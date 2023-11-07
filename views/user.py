@@ -1,6 +1,7 @@
 import sqlite3
 import json
 from datetime import datetime
+from models import User
 
 def login_user(user):
     """Checks for the user in the database
@@ -52,15 +53,17 @@ def create_user(user):
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        Insert into Users (first_name, last_name, username, email, password, bio, created_on, active) values (?, ?, ?, ?, ?, ?, ?, 1)
+        Insert into Users (first_name, last_name, email, bio, username, password, profile_image_url, created_on, active) values (?, ?, ?, ?, ?, ?, ?, ?, 1)
         """, (
             user['first_name'],
             user['last_name'],
-            user['username'],
             user['email'],
-            user['password'],
             user['bio'],
-            datetime.now()
+            user['username'],
+            user['password'],
+            user['profile_image_url'],
+            datetime.now(),
+            sample_user['active'],
         ))
 
         id = db_cursor.lastrowid
@@ -70,9 +73,25 @@ def create_user(user):
             'valid': True
         })
 
+    # Sample user dictionary
+sample_user = {
+    'first_name': "John",
+    'last_name': "Smith",
+    'email': "jsmith@email.com",
+    'bio': "I love to mountain bike",
+    'username': "jsmith",
+    'password': "password",
+    'profile_image_url': "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRate-msL5cNaXEzxG2i90C-_4A0LDkrud94A&usqp=CAU",
+    'created_on': "10/30/23",
+    'active': True  # This should be a boolean value (True/False)
+}
+
+# Call create_user with the sample_user dictionary
+new_user = create_user(sample_user)
+
 def update_user(id, new_user):
     """update item"""
-    with sqlite3.connect("./kennel.sqlite3") as conn:
+    with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
@@ -81,14 +100,16 @@ def update_user(id, new_user):
                 first_name = ?,
                 last_name = ?,          
                 email = ?,
-                password = ?,
                 bio = ?,
+                username = ?,
+                password = ?,
                 profile_image_url = ?,
+                created_on = ?,
                 active = ?
         WHERE id = ?
         """, (new_user['first_name'], new_user['last_name'],
-              new_user['email'], new_user['password'],
-              new_user['bio'], new_user['profile_image_url'], 
+              new_user['email'], new_user['bio'], new_user['username'], new_user['password'],
+              new_user['profile_image_url'],new_user['created_on'],
               new_user['active'], id, ))
 
         # Were any rows affected?
@@ -103,3 +124,87 @@ def update_user(id, new_user):
         # Forces 204 response by main module
         return True
 
+def get_all_users():
+    """gets all users."""
+    # Open a connection to the database
+    with sqlite3.connect("./db.sqlite3") as conn:
+
+        # Just use these. It's a Black Box.
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        # Write the SQL query to get the information you want
+        db_cursor.execute("""
+        SELECT
+            a.id,
+            a.first_name,
+            a.last_name,
+            a.email,
+            a.bio,
+            a.username,              
+            a.password,
+            a.profile_image_url,
+            a.created_on,
+            a.active
+        FROM Users a
+            """)
+
+        # Initialize an empty list to hold all users representations
+        users = []
+
+        # Convert rows of data into a Python list
+        dataset = db_cursor.fetchall()
+
+        # Iterate list of data returned from database
+        for row in dataset:
+
+    # Create an user instance from the current row
+            user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'])
+
+            sample_user = {
+                'first_name': "John",
+                'last_name': "Smith",
+                'email': "jsmith@email.com",
+                'bio': "I love to mountain bike",
+                'username': "jsmith",
+                'password': "password",
+                'profile_image_url': "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUgwGMfmSdvUXQcG3SdutP1VFe23ob2V7OOw&usqp=CAU",
+                'created_on': "10/3/02",
+                'active': True  # Set "active" to True (or False) as needed
+            }
+
+    # Add the dictionary representation of the user to the list
+            users.append(user.__dict__)
+
+        return users
+
+def get_single_user(id):
+    #"""return a single user."""
+    with sqlite3.connect("./db.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        # Use a ? parameter to inject a variable's value
+        # into the SQL statement.
+        db_cursor.execute("""
+        SELECT
+            a.id,
+            a.first_name,
+            a.last_name,
+            a.email,
+            a.password,
+            a.bio,
+            a.profile_image_url,
+            a.created_on,
+            a.active
+        FROM Users a
+        WHERE a.id = ?
+        """, ( id, ))
+
+        # Load the single result into memory
+        data = db_cursor.fetchone()
+
+        # Create a user instance from the current row
+        user = User(data['id'], data['first_name'], data['last_name'], data['email'], data['bio'], data['username'], data['password'], data['profile_image_url'], data['created_on'], data['active'])
+
+        return user.__dict__
