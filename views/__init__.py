@@ -12,6 +12,7 @@ from .post_requests import get_single_post
 from .post_requests import get_post_by_user
 from .post_requests import create_post
 from .post_requests import delete_post
+from .post_requests import update_post
 
 from .post_reaction_requests import get_all_post_reactions
 from .post_reaction_requests import get_single_post_reaction
@@ -24,4 +25,3 @@ from .comment_requests import create_comment
 from .comment_requests import delete_comment
 from .comment_requests import update_comment
 from .comment_requests import get_comments_by_post
-

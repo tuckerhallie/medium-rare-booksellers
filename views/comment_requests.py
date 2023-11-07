@@ -19,7 +19,7 @@ def get_all_comments():
             c.post_id,
             c.author_id,
             c.content
-        FROM comment c
+        FROM comments c
         """)
 
         # Initialize an empty list to hold all comment representations

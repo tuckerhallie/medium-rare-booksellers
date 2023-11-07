@@ -120,7 +120,7 @@ def create_post(new_post):
         INSERT INTO Posts
             ( user_id, category_id, title, publication_date, image_url, content, approved )
         VALUES
-            ( ?, ?, ?, ?, ?);
+            ( ?, ?, ?, ?, ?, ?, ?);
         """, (new_post['userId'],
               new_post['categoryId'],
               new_post['title'],
@@ -153,13 +153,13 @@ def update_post(id, new_post):
         db_cursor.execute("""
         UPDATE Posts
             SET
-                p.user_id = ?,
-                p.category_id = ?,
-                p.title = ?,
-                p.publication_date = ?,
-                p.image_url = ?,
-                p.content = ?,
-                p.approved = ?
+                user_id = ?,
+                category_id = ?,
+                title = ?,
+                publication_date = ?,
+                image_url = ?,
+                content = ?,
+                approved = ?
         WHERE id = ?
         """, (new_post['userId'],
               new_post['categoryId'],
