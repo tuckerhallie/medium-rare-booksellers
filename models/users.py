@@ -26,6 +26,7 @@ class User():
         self.profile_image_url = profile_image_url
         self.created_on = created_on
         self.active = active
+        
 
 # Creating a new Customer object
 # new_user = User(
