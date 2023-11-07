@@ -115,3 +115,11 @@ INSERT INTO `Comments` VALUES (null, 2, 1, "hello");
 INSERT INTO `Comments` VALUES (null, 3, 2, "yes");
 
 INSERT INTO 'Posts' VALUES (2, 1, 1, 'Heyyyy', null, null, 'hey hi', null);
+
+SELECT
+  c.id,
+  c.post_id,
+  c.author_id,
+  c.content
+FROM Comments c
+WHERE c.id = 2

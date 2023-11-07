@@ -150,7 +150,6 @@ class HandleRequests(BaseHTTPRequestHandler):
             delete_post_reaction(id)
             self.wfile.write("".encode())
 
-
 def main():
     """Starts the server on port 8088 using the HandleRequests class
     """
