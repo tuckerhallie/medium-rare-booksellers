@@ -117,6 +117,33 @@ INSERT INTO `Comments` VALUES (null, 3, 2, "yes");
 INSERT INTO 'Posts' VALUES (2, 1, 1, 'Heyyyy', null, null, 'hey hi', null);
 
 SELECT
+    pr.id,
+    pr.user_id,
+    pr.post_id,
+    pr.reaction_id,
+    r.label reaction_label,
+    r.image_url reaction_image_url,
+    u.username user_username,
+    p.title post_title,
+    p.content post_content
+FROM PostReactions pr
+LEFT JOIN Users u
+    ON u.id = pr.user_id
+LEFT JOIN Posts p
+    ON p.id = pr.post_id
+LEFT JOIN Reactions r
+    ON r.id = pr.reaction_id
+
+
+SELECT
+    pr.id,
+    pr.user_id,
+    pr.post_id,
+    pr.reaction_id
+FROM PostReactions pr
+WHERE pr.id = 1         
+
+SELECT
   c.id,
   c.post_id,
   c.author_id,
