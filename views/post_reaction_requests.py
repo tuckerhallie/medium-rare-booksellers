@@ -20,10 +20,6 @@ def get_all_post_reactions():
             p.title post_title,
             p.content post_content
         FROM PostReactions pr
-        JOIN Users u
-            ON u.id = pr.user_id
-        JOIN Posts p
-            ON p.id = pr.post_id
         JOIN Reactions r
             ON r.id = pr.reaction_id        
         """) 
@@ -39,14 +35,6 @@ def get_all_post_reactions():
             reaction = Reaction(row['id'], row['reaction_label'], row['reaction_image_url'])
             
             postreaction.reaction = reaction.__dict__
-            
-            user = User(row['id'], row['user_username'])
-            
-            postreaction.user = user.__dict__ 
-            
-            post = Post(row['id'], row['post_title'], row['post_content'])
-            
-            postreaction.post = post.__dict__
             
             postreactions.append(postreaction.__dict__)
             
