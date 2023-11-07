@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from urllib.parse import urlparse, parse_qs
-from views import get_single_reaction, get_all_reactions, get_all_posts, get_single_post, get_post_by_user, create_post, delete_post, update_post, get_all_post_reactions, get_single_post_reaction, create_post_reaction, delete_post_reaction, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_comments_by_post, update_user, get_all_users, get_single_user
+from views import get_single_reaction, get_all_reactions, get_all_posts, get_single_post, get_post_by_user, create_post, delete_post, update_post get_all_post_reactions, get_single_post_reaction, create_post_reaction, delete_post_reaction, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_comments_by_post, update_user, get_all_users, get_single_user
 from views.user import create_user, login_user
 
 
@@ -54,7 +54,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         """Handle Get requests to the server"""
         self._set_headers(200)
         response = {}
-        parsed = self.parse_url(self.path)
+        parsed = self.parse_url()
         
         if '?' not in self.path:
             ( resource, id ) = parsed
@@ -112,7 +112,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_post(post_body)
         if resource == 'comments':
             response = create_comment(post_body)
-        if resource == 'post_reaction':
+        if resource == 'post_reactions':
             response = create_post_reaction(post_body)
 
         self.wfile.write(response.encode())
@@ -156,7 +156,7 @@ class HandleRequests(BaseHTTPRequestHandler):
     def do_DELETE(self):
         """Handle DELETE Requests"""
         self._set_headers(204)
-        (resource, id) = self.parse_url(self.path)
+        (resource, id) = self.parse_url()
         
         if resource == "posts":
             delete_post(id)
@@ -164,7 +164,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "comments":
             delete_comment(id)
             self.wfile.write("".encode())
-        if resource == "post_reaction":
+        if resource == "post_reactions":
             delete_post_reaction(id)
             self.wfile.write("".encode())
 
