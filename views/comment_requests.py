@@ -19,7 +19,7 @@ def get_all_comments():
             c.post_id,
             c.author_id,
             c.content
-        FROM comment c
+        FROM comments c
         """)
 
         # Initialize an empty list to hold all comment representations
@@ -55,7 +55,7 @@ def get_single_comment(id):
             c.post_id,
             c.author_id,
             c.content
-        FROM comment c
+        FROM comments c
         WHERE a.id = ?
         """, ( id, ))
 
@@ -75,7 +75,7 @@ def create_comment(new_comment):
         INSERT INTO Comment
             ( post_id, author_id, content )
         VALUES
-            ( ?, ?, ?, ?, ?);
+            ( ?, ?, ?);
         """, (new_comment['post_id'], new_comment['author_id'],
               new_comment['content'], ))
 
@@ -137,7 +137,7 @@ def get_comments_by_post(post_id):
             c.post_id,
             c.author_id,
             c.content
-        FROM comment c
+        FROM comments c
         WHERE c.post_id = ?
         """, (post_id, ))
 

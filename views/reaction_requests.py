@@ -13,7 +13,7 @@ def get_single_reaction(id):
             r.id,
             r.label,
             r.imague_url
-        FROM reaction r
+        FROM reactions r
         WHERE r.id = ?
         """, ( id, ))
     
@@ -34,7 +34,7 @@ def get_all_reactions():
           a.id,
           a.label,
           a.image_url
-        FROM reaction r
+        FROM reactions r
         """)
       
         reactions = []
