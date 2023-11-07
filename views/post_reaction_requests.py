@@ -47,7 +47,7 @@ def get_all_post_reactions():
             post = Post(row['id'], row['post_title'], row['post_content'])
             
             postreaction.post = post.__dict__
-            
+          
             postreactions.append(postreaction.__dict__)
             
     return postreactions

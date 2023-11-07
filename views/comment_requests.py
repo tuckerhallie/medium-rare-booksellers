@@ -19,7 +19,7 @@ def get_all_comments():
             c.post_id,
             c.author_id,
             c.content
-        FROM comment c
+        FROM comments c
         """)
 
         # Initialize an empty list to hold all comment representations
@@ -55,8 +55,8 @@ def get_single_comment(id):
             c.post_id,
             c.author_id,
             c.content
-        FROM comment c
-        WHERE a.id = ?
+        FROM comments c
+        WHERE c.id = ?
         """, ( id, ))
 
         # Load the single result into memory
@@ -68,16 +68,16 @@ def get_single_comment(id):
         return comment.__dict__
 
 def create_comment(new_comment):
-    with sqlite3.connect("./kennel.sqlite3") as conn:
+    with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        INSERT INTO Comment
+        INSERT INTO Comments
             ( post_id, author_id, content )
         VALUES
-            ( ?, ?, ?, ?, ?);
-        """, (new_comment['post_id'], new_comment['author_id'],
-              new_comment['content'], ))
+            ( ?, ?, ?);
+        """, (new_comment['postId'], new_comment['authorId'],
+              new_comment['content'] ))
 
         # The `lastrowid` property on the cursor will return
         # the primary key of the last thing that got added to
@@ -97,20 +97,20 @@ def delete_comment(id):
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        DELETE FROM comment
+        DELETE FROM comments
         WHERE id = ?
         """, (id, ))
 
-def update_comment(id, new_comment):
+def update_comment(id, update_comment):
     with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        UPDATE Comment
+        UPDATE Comments
             SET
                 content = ?
         WHERE id = ?
-        """, (new_comment['content'],
+        """, (update_comment['content'],
                 id, ))
 
         # Were any rows affected?
@@ -137,7 +137,7 @@ def get_comments_by_post(post_id):
             c.post_id,
             c.author_id,
             c.content
-        FROM comment c
+        FROM comments c
         WHERE c.post_id = ?
         """, (post_id, ))
 

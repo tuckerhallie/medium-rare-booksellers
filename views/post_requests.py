@@ -32,7 +32,7 @@ def get_all_posts():
               row['user_id'],
               row['category_id'],
               row['title'],
-              row['publication_id'],
+              row['publication_date'],
               row['image_url'],
               row['content'],
               row['approved']
@@ -120,7 +120,7 @@ def create_post(new_post):
         INSERT INTO Posts
             ( user_id, category_id, title, publication_id, image_url, content, approved )
         VALUES
-            ( ?, ?, ?, ?, ?);
+            ( ?, ?, ?, ?, ?, ?, ?);
         """, (new_post['userId'],
               new_post['categoryId'],
               new_post['title'],
