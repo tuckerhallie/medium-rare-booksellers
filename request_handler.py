@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 
-from views import get_single_post_reaction, get_all_post_reactions, get_posts_by_user, get_comments_by_post, create_post, create_comment, create_post_reaction, update_user, delete_post, delete_comment, delete_post_reaction
+from views import get_single_reaction, get_single_reaction, get_all_reactions, get_all_posts, get_single_post, get_post_by_user, create_post, delete_post, get_all_post_reactions, get_single_post_reaction, create_post_reaction, delete_post_reaction
 from views.user import create_user, login_user
 
 
