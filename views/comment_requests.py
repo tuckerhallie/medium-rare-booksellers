@@ -101,7 +101,7 @@ def delete_comment(id):
         WHERE id = ?
         """, (id, ))
 
-def update_comment(id, update_comment):
+def update_comment(id, new_comment):
     with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
@@ -110,7 +110,7 @@ def update_comment(id, update_comment):
             SET
                 content = ?
         WHERE id = ?
-        """, (update_comment['content'],
+        """, (new_comment['content'],
                 id, ))
 
         # Were any rows affected?

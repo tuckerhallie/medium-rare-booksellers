@@ -95,7 +95,7 @@ def update_user(id, new_user):
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        UPDATE User
+        UPDATE Users
             SET
                 first_name = ?,
                 last_name = ?,          
