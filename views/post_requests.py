@@ -32,7 +32,7 @@ def get_all_posts():
               row['user_id'],
               row['category_id'],
               row['title'],
-              row['publication_id'],
+              row['publication_date'],
               row['image_url'],
               row['content'],
               row['approved']
@@ -69,7 +69,7 @@ def get_single_post(id):
               data['user_id'],
               data['category_id'],
               data['title'],
-              data['publication_id'],
+              data['publication_date'],
               data['image_url'],
               data['content'],
               data['approved']
@@ -104,7 +104,7 @@ def get_post_by_user(user_id):
               data['user_id'],
               data['category_id'],
               data['title'],
-              data['publication_id'],
+              data['publication_date'],
               data['image_url'],
               data['content'],
               data['approved']
@@ -118,13 +118,13 @@ def create_post(new_post):
 
         db_cursor.execute("""
         INSERT INTO Posts
-            ( user_id, category_id, title, publication_id, image_url, content, approved )
+            ( user_id, category_id, title, publication_date, image_url, content, approved )
         VALUES
             ( ?, ?, ?, ?, ?);
         """, (new_post['userId'],
               new_post['categoryId'],
               new_post['title'],
-              new_post['publicationId'],
+              new_post['publicationDate'],
               new_post['imageUrl'],
               new_post['content'],
               new_post['approved']
@@ -164,7 +164,7 @@ def update_post(id, new_post):
         """, (new_post['userId'],
               new_post['categoryId'],
               new_post['title'],
-              new_post['publicationId'],
+              new_post['publicationDate'],
               new_post['imageUrl'],
               new_post['content'],
               new_post['approved'],
