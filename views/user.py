@@ -63,7 +63,7 @@ def create_user(user):
             user['password'],
             user['profile_image_url'],
             datetime.now(),
-            sample_user['active'],
+            #sample_user['active'],
         ))
 
         id = db_cursor.lastrowid
