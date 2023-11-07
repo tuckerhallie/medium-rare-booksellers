@@ -1,6 +1,8 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views.user import create_user, login_user, get_single_user, get_all_users, get_single_post, get_all_posts, get_single_comment, get_all_comments, get_single_post_reaction, get_all_post_reactions,get_posts_by_user, get_comments_by_post, create_post, create_comment, create_post_reaction, update_user, delete_post, delete_comment, delete_post_reaction
+
+from views import get_single_reaction, get_all_reactions, get_all_posts, get_single_post, get_post_by_user, create_post, delete_post, get_all_post_reactions, get_single_post_reaction, create_post_reaction, delete_post_reaction, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_comments_by_post, update_user, get_all_users, get_single_user
+from views.user import create_user, login_user
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -81,7 +83,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             (resource, query) = parsed
             
             if query.get('posts') and resource == 'users':
-                response = get_posts_by_user(query['posts'][0])
+                response = get_post_by_user(query['posts'][0])
                 
             if query.get('comments') and resource == 'posts':
                 response = get_comments_by_post(query['comments'][0])
@@ -132,6 +134,14 @@ class HandleRequests(BaseHTTPRequestHandler):
             self._set_headers(204)
         else:
             self._set_headers(404)
+            
+        if resource == "comments":
+            success = update_comment(id, post_body)
+        
+        if success:
+            self._set_headers(204)
+        else:
+            self._set_headers(404)    
         self.wfile.write("".encode())
 
 
