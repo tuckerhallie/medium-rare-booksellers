@@ -1,13 +1,14 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import get_single_reaction, get_all_reactions, get_all_posts, get_single_post, get_post_by_user, create_post, delete_post, get_all_post_reactions, get_single_post_reaction, create_post_reaction, delete_post_reaction, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_comments_by_post, update_user, get_all_users, get_single_user
+from urllib.parse import urlparse, parse_qs
+from views import get_single_reaction, get_all_reactions, get_all_posts, get_single_post, get_post_by_user, create_post, delete_post, update_post, get_all_post_reactions, get_single_post_reaction, create_post_reaction, delete_post_reaction, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_comments_by_post, update_user, get_all_users, get_single_user
 from views.user import create_user, login_user
 
 
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
 
-    def parse_url(self):
+    def parse_url(self, path):
         """Parse the url into the resource and id"""
         path_params = self.path.split('/')
         resource = path_params[1]
@@ -53,7 +54,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         """Handle Get requests to the server"""
         self._set_headers(200)
         response = {}
-        parsed = self.parse_url()
+        parsed = self.parse_url(self.path)
         
         if '?' not in self.path:
             ( resource, id ) = parsed
@@ -97,7 +98,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         content_len = int(self.headers.get('content-length', 0))
         post_body = json.loads(self.rfile.read(content_len))
         response = ''
-        resource, _ = self.parse_url()
+        resource, _ = self.parse_url(self.path)
         
         new_post = None
         new_comment = None
@@ -140,14 +141,22 @@ class HandleRequests(BaseHTTPRequestHandler):
         if success:
             self._set_headers(204)
         else:
-            self._set_headers(404)    
+            self._set_headers(404) 
+            
+        if resource == "posts":
+            success = update_post(id, post_body)
+            
+        if success:
+            self._set_headers(204)
+        else:
+            self._set_headers(404)
         self.wfile.write("".encode())
 
 
     def do_DELETE(self):
         """Handle DELETE Requests"""
         self._set_headers(204)
-        (resource, id) = self.parse_url()
+        (resource, id) = self.parse_url(self.path)
         
         if resource == "posts":
             delete_post(id)
