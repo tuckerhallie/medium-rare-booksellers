@@ -52,23 +52,23 @@ def create_user(user):
         conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
 
-        db_cursor.execute("""
-        Insert into Users (first_name, last_name, email, bio, username, password, profile_image_url, created_on, active) values (?, ?, ?, ?, ?, ?, ?, ?, 1)
-        """, (
-            user['first_name'],
-            user['last_name'],
-            user['email'],
-            user['bio'],
-            user['username'],
-            user['password'],
-            user['profile_image_url'],
-            datetime.now(),
-            sample_user['active'],
+    db_cursor.execute("""
+    INSERT INTO Users (first_name, last_name, email, bio, username, password, profile_image_url, created_on, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+""", (
+        user['first_name'],
+        user['last_name'],
+        user['email'],
+        user['bio'],
+        user['username'],
+        user['password'],
+        user['profile_image_url'],
+        user['created_on'],
         ))
 
-        id = db_cursor.lastrowid
 
-        return json.dumps({
+    id = db_cursor.lastrowid
+
+    return json.dumps({
             'token': id,
             'valid': True
         })
