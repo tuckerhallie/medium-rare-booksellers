@@ -12,7 +12,7 @@ def get_single_reaction(id):
         SELECT
             r.id,
             r.label,
-            r.imague_url
+            r.image_url
         FROM reactions r
         WHERE r.id = ?
         """, ( id, ))

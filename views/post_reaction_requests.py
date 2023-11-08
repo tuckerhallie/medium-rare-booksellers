@@ -29,7 +29,7 @@ def get_all_post_reactions():
           
             postreaction = PostReaction(row['id'], row['user_id'], row['post_id'], row['reaction_id']) 
             
-            reaction = Reaction(row['id'], row['reaction_label'], row['reaction_image_url'])
+            reaction = Reaction(row['reaction_id'], row['reaction_label'], row['reaction_image_url'])
             
             postreaction.reaction = reaction.__dict__
             
@@ -59,26 +59,25 @@ def get_single_post_reaction(id):
         return postreaction.__dict__
       
 def create_post_reaction(new_post_reaction):
-  '''docstring'''
-  with sqlite3.connect("./db.sqlite3") as conn:
-    db_cursor = conn.cursor()
-    db_cursor.execute("""
-    INSERT INTO postreactions
-      ( user_id, reaction_id, post_id )
-    VALUES
-      ( ?, ?, ?);
-    """, (new_post_reaction['userId'], new_post_reaction['reactionId'], new_post_reaction['postId'] ))
-    id = db_cursor.lastrowid
-    new_post_reaction['id'] = id
-  return new_post_reaction
+    with sqlite3.connect("./db.sqlite3") as conn:
+      db_cursor = conn.cursor()
+      db_cursor.execute("""
+      INSERT INTO PostReactions
+        ( user_id, reaction_id, post_id )
+      VALUES
+        ( ?, ?, ?);
+      """, (new_post_reaction['userId'], new_post_reaction['reactionId'], new_post_reaction['postId'] ))
+      id = db_cursor.lastrowid
+      new_post_reaction['id'] = id
+    return new_post_reaction
 
 def delete_post_reaction(id):
-  with sqlite3.connect("./db.sqlite3") as conn:
-    db_cursor = conn.cursor()
-    db_cursor.execute("""
-    DELETE FROM postreactions
-    WHERE id = ?
-    """, (id, ))      
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+        db_cursor.execute("""
+        DELETE FROM postreactions
+        WHERE id = ?
+        """, (id, ))      
   
   
     

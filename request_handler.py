@@ -1,7 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from urllib.parse import urlparse, parse_qs
-from views import get_single_reaction, get_all_reactions, get_all_posts, get_single_post, get_post_by_user, create_post, delete_post, update_post, get_all_post_reactions, get_single_post_reaction, create_post_reaction, delete_post_reaction, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_comments_by_post, update_user, get_all_users, get_single_user
+from views import get_single_reaction, get_all_reactions, get_all_posts, get_single_post, get_post_by_user, create_post, delete_post, get_all_post_reactions, get_single_post_reaction, create_post_reaction, delete_post_reaction, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_comments_by_post, update_user, get_all_users, get_single_user
 from views.user import create_user, login_user
 
 
@@ -141,15 +140,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         if success:
             self._set_headers(204)
         else:
-            self._set_headers(404) 
-            
-        if resource == "posts":
-            success = update_post(id, post_body)
-            
-        if success:
-            self._set_headers(204)
-        else:
-            self._set_headers(404)
+            self._set_headers(404)    
         self.wfile.write("".encode())
 
 
