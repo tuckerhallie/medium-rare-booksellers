@@ -57,12 +57,12 @@ def create_user(user):
 """, (
         user['first_name'],
         user['last_name'],
-        user['email'],
-        user['bio'],
         user['username'],
+        user['email'],
         user['password'],
+        user['bio'],
         user['profile_image_url'],
-        user['created_on'],
+        datetime.now(),
         ))
 
 
@@ -72,22 +72,6 @@ def create_user(user):
             'token': id,
             'valid': True
         })
-
-    # Sample user dictionary
-sample_user = {
-    'first_name': "John",
-    'last_name': "Smith",
-    'email': "jsmith@email.com",
-    'bio': "I love to mountain bike",
-    'username': "jsmith",
-    'password': "password",
-    'profile_image_url': "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRate-msL5cNaXEzxG2i90C-_4A0LDkrud94A&usqp=CAU",
-    'created_on': "10/30/23",
-    'active': True  # This should be a boolean value (True/False)
-}
-
-# Call create_user with the sample_user dictionary
-new_user = create_user(sample_user)
 
 def update_user(id, new_user):
     """update item"""
@@ -161,18 +145,6 @@ def get_all_users():
     # Create an user instance from the current row
             user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'])
 
-            sample_user = {
-                'first_name': "John",
-                'last_name': "Smith",
-                'email': "jsmith@email.com",
-                'bio': "I love to mountain bike",
-                'username': "jsmith",
-                'password': "password",
-                'profile_image_url': "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUgwGMfmSdvUXQcG3SdutP1VFe23ob2V7OOw&usqp=CAU",
-                'created_on': "10/3/02",
-                'active': True  # Set "active" to True (or False) as needed
-            }
-
     # Add the dictionary representation of the user to the list
             users.append(user.__dict__)
 
@@ -194,6 +166,7 @@ def get_single_user(id):
             a.email,
             a.password,
             a.bio,
+            a.username,
             a.profile_image_url,
             a.created_on,
             a.active
